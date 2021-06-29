@@ -1,1 +1,4 @@
-# sce-poc-elastic-search
+# To Run
+
+- An instance of ElasticSearch is needed
+
