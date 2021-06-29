@@ -6,6 +6,7 @@ import org.springframework.data.elasticsearch.annotations.DateFormat
 import org.springframework.data.elasticsearch.annotations.Document
 import org.springframework.data.elasticsearch.annotations.Field
 import org.springframework.data.elasticsearch.annotations.FieldType
+import java.time.Instant
 import java.time.LocalDateTime
 
 @Document(indexName = "interactiontriggerindex")
@@ -26,8 +27,9 @@ data class InteractionTrigger (
 
     //ResourceName
     @Field(type = FieldType.Text, name = "flow_name")
-    private val flowName: String
+    private val flowName: String,
 
     //@Field(type = FieldType.Date, name = "updated_at", pattern=["uuuu-MM-dd'T'HH:mm:ss.SSSXXX"], format = [DateFormat.date_time])
-    //private val updated_at: LocalDateTime UTC
+    @Field(type = FieldType.Date, pattern = ["yyyy-MM-dd'T'HH:mm:ss.SSSZZ"])
+    private val updated_at: Instant
     )

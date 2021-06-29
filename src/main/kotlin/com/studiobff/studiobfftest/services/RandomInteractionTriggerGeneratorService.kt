@@ -3,6 +3,7 @@ package com.studiobff.studiobfftest.services
 import com.studiobff.studiobfftest.models.InteractionTrigger
 import com.studiobff.studiobfftest.repositories.InteractionTriggersRepository
 import org.springframework.stereotype.Service
+import java.time.Instant
 import java.util.*
 
 @Service
@@ -27,7 +28,8 @@ class RandomInteractionTriggerGeneratorService(
            channel = generatorService.generateRandomChannelType(),
            phoneNumber = generatorService.generatePhoneNumber(),
            flowName =  generatorService.generateRandomFlowName(),
-           friendlyName = generatorService.generateRandomFriendlyName()
+           friendlyName = generatorService.generateRandomFriendlyName(),
+           updated_at = Instant.now()
        )
     }
 
