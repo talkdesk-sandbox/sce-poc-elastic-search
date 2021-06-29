@@ -18,7 +18,7 @@ data class InteractionTrigger (
     @Field(type = FieldType.Keyword, name = "channel")
     private val channel: String,
 
-    //touchpoint
+    //Touchpoint
     @Field(type = FieldType.Text, name = "phone_number")
     private val phoneNumber: String,
 
@@ -29,7 +29,6 @@ data class InteractionTrigger (
     @Field(type = FieldType.Text, name = "flow_name")
     private val flowName: String,
 
-    //@Field(type = FieldType.Date, name = "updated_at", pattern=["uuuu-MM-dd'T'HH:mm:ss.SSSXXX"], format = [DateFormat.date_time])
     @Field(type = FieldType.Date, pattern = ["yyyy-MM-dd'T'HH:mm:ss.SSSZZ"])
     private val updated_at: Instant
     )
