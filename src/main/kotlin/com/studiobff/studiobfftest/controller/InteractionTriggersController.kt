@@ -38,15 +38,28 @@ class InteractionTriggersController(
         return "Error finding by channel"
     }
 
-/*    @RequestMapping("/findByChannelOrFriendlyName", method = [RequestMethod.GET])
-    fun getByAllFields(
-        @RequestParam field: String
+    @RequestMapping("/findByAccountId", method = [RequestMethod.GET])
+    fun getByChannel(
+        @RequestParam accountId: String
+    ): String{
+
+        accountId.ifEmpty {
+            return "Error finding by multiple fields"
+        }
+
+        return beautifyService.beautify(searchService.findByAccountId(accountId))
+    }
+
+   @RequestMapping("/findByMultipleFields", method = [RequestMethod.GET])
+    fun getByMultipleFields(
+        @RequestParam field: String,
+        @RequestParam accountId: String
     ): String{
 
         field.ifEmpty {
-            return "Error finding by channel or friendly name"
+            return "Error finding by multiple fields"
         }
 
-        return beautifyService.beautify(searchService.findByChannelAndFriendlyName(field))
-    }*/
+        return beautifyService.beautify(searchService.findByMultipleFields(accountId, field))
+    }
 }

@@ -36,4 +36,11 @@ class RandomFieldsGeneratorService {
             .map { allowedChars.random() }
             .joinToString("")
     }
+
+    // Generate no more than maxNoAccounts accounts, but can repeat since we can have more than one trigger
+    // per account
+    fun generateRandomAccount(maxNoAccounts: Int): String{
+        val accountNo = (0 until maxNoAccounts).random()
+        return "account-${accountNo}"
+    }
 }

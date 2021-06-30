@@ -31,15 +31,25 @@ class InteractionTriggersSearchService(
         return interactionTriggerList;
     }
 
-   /* fun findByChannelAndFriendlyName(filter: String): List<InteractionTrigger>{
+    fun findByAccountId(accountId: String): List<InteractionTrigger>{
         val interactionTriggerList: MutableList<InteractionTrigger> =  ArrayList()
 
-        interactionTriggersRepository.findByChannelOrFriendlyName(filter).forEach {
+        interactionTriggersRepository.findByAccountId(accountId).forEach {
             interactionTriggerList.add(it!!)
         }
 
         return interactionTriggerList;
-    }*/
+    }
+
+   fun findByMultipleFields(accountId:String, filter: String): List<InteractionTrigger>{
+        val interactionTriggerList: MutableList<InteractionTrigger> =  ArrayList()
+
+        interactionTriggersRepository.findByMultipleFields(accountId, filter).forEach {
+            interactionTriggerList.add(it!!)
+        }
+
+        return interactionTriggerList;
+    }
 
     // Filter by Channel AND/OR Resource Name
     // Find by number/ touchpoint OR Flow Name OR Friendly Name

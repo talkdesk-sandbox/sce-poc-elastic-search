@@ -15,6 +15,9 @@ data class InteractionTrigger (
     @Id
     private val id: String,
 
+    @Field(type = FieldType.Keyword, name = "account_id")
+    private val accountId: String,
+
     @Field(type = FieldType.Keyword, name = "channel")
     private val channel: String,
 

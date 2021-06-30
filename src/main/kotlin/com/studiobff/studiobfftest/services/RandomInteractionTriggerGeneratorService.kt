@@ -14,17 +14,19 @@ class RandomInteractionTriggerGeneratorService(
 ) {
 
     fun generateRandomTriggers(){
+        val triggers_count = 10
         interactionTriggersRepository.deleteAll()
-        repeat(10) { index ->
+        repeat(triggers_count) { index ->
             println("Creating a new interaction trigger with id $index")
-            val interactionTrigger = generateRandomTrigger(index.toString())
+            val interactionTrigger = generateRandomTrigger(index.toString(), triggers_count)
             interactionTriggersRepository.save(interactionTrigger)
         }
     }
 
-    fun generateRandomTrigger(id: String): InteractionTrigger{
+    fun generateRandomTrigger(id: String, triggers_count: Int): InteractionTrigger{
        return InteractionTrigger(
            id = id,
+           accountId = generatorService.generateRandomAccount(triggers_count),
            channel = generatorService.generateRandomChannelType(),
            phoneNumber = generatorService.generatePhoneNumber(),
            flowName =  generatorService.generateRandomFlowName(),
