@@ -1,8 +1,10 @@
 package com.studiobff.studiobfftest.repositories
 
 import com.studiobff.studiobfftest.models.InteractionTrigger
+import org.elasticsearch.index.query.QueryBuilders
 import org.springframework.context.annotation.Bean
 import org.springframework.data.elasticsearch.annotations.Query
+import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository
 import org.springframework.data.elasticsearch.repository.config.EnableElasticsearchRepositories
 import org.springframework.stereotype.Repository
@@ -17,4 +19,5 @@ interface InteractionTriggersRepository: ElasticsearchRepository<InteractionTrig
     @Query("{\"bool\": { \"must\": [{\"match\": {\"account_id\": {\"query\": \"?0\"}}},{\"wildcard\": {\"flow_name\": \"?1\"}}]}}")
     fun findByMultipleFields(accountId: String, field: String): List<InteractionTrigger>
 
+    fun findByAccountIdAndFlowId(accountId: String, flowId: String): List<InteractionTrigger>
 }

@@ -1,6 +1,7 @@
 package com.studiobff.studiobfftest.controller
 
 import com.studiobff.studiobfftest.services.BeautifyService
+import com.studiobff.studiobfftest.services.InteractionTriggerUpdateService
 import com.studiobff.studiobfftest.services.InteractionTriggersSearchService
 import com.studiobff.studiobfftest.services.RandomInteractionTriggerGeneratorService
 import org.springframework.web.bind.annotation.RequestBody
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("bff/interaction_triggers")
 class InteractionTriggersController(
     private val searchService: InteractionTriggersSearchService,
+    private val updateService: InteractionTriggerUpdateService,
     private val generatorService: RandomInteractionTriggerGeneratorService,
     private val beautifyService: BeautifyService,
 ) {
@@ -62,4 +64,27 @@ class InteractionTriggersController(
 
         return beautifyService.beautify(searchService.findByMultipleFields(accountId, field))
     }
+
+    @RequestMapping("/updateFlowName", method = [RequestMethod.POST])
+    fun getByChannel(
+        @RequestParam flowId: String,
+        @RequestParam flowName: String,
+        @RequestParam accountId: String
+    ): String{
+
+        accountId.ifEmpty {
+            return "Error finding by multiple fields"
+        }
+
+        flowId.ifEmpty {
+            return "Error finding by multiple fields"
+        }
+
+        flowName.ifEmpty {
+            return "Error finding by multiple fields"
+        }
+
+        return beautifyService.beautify(updateService.updateFlowName(accountId, flowId, flowName))
+    }
+
 }

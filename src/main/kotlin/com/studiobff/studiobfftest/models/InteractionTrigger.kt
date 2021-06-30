@@ -28,6 +28,9 @@ data class InteractionTrigger (
     @Field(type = FieldType.Text, name = "friendly_name")
     private val friendlyName: String,
 
+    @Field(type = FieldType.Keyword, name = "flow_id")
+    private val flowId: String,
+
     //ResourceName
     @Field(type = FieldType.Text, name = "flow_name")
     private val flowName: String,

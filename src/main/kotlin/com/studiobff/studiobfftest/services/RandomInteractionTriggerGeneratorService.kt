@@ -29,6 +29,7 @@ class RandomInteractionTriggerGeneratorService(
            accountId = generatorService.generateRandomAccount(triggers_count),
            channel = generatorService.generateRandomChannelType(),
            phoneNumber = generatorService.generatePhoneNumber(),
+           flowId = generatorService.generateRandomFlowId(triggers_count),
            flowName =  generatorService.generateRandomFlowName(),
            friendlyName = generatorService.generateRandomFriendlyName(),
            updated_at = Instant.now()
