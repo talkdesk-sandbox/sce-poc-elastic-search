@@ -1,0 +1,10 @@
+{
+  "analysis": {
+    "analyzer": {
+      "custom_analyzer_number": {
+        "type": "custom",
+        "tokenizer": "pattern"
+      }
+    }
+  }
+}

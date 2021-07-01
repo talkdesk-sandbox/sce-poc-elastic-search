@@ -1,14 +1,13 @@
 package com.studiobff.studiobfftest.models
 
-import org.joda.time.DateTime
 import org.springframework.data.annotation.Id
-import org.springframework.data.elasticsearch.annotations.DateFormat
 import org.springframework.data.elasticsearch.annotations.Document
 import org.springframework.data.elasticsearch.annotations.Field
 import org.springframework.data.elasticsearch.annotations.FieldType
+import org.springframework.data.elasticsearch.annotations.Setting
 import java.time.Instant
-import java.time.LocalDateTime
 
+@Setting(settingPath = "settings/flowAnalyzer.json")
 @Document(indexName = "interactiontriggerindex")
 data class InteractionTrigger (
 
@@ -32,7 +31,7 @@ data class InteractionTrigger (
     private val flowId: String,
 
     //ResourceName
-    @Field(type = FieldType.Text, name = "flow_name")
+    @Field(type = FieldType.Text, name = "flow_name", analyzer = "custom_analyzer")
     private val flowName: String,
 
     @Field(type = FieldType.Date, pattern = ["yyyy-MM-dd'T'HH:mm:ss.SSSZZ"])
