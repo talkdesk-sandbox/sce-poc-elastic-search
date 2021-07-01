@@ -21,7 +21,7 @@ data class InteractionTrigger (
     private val channel: String,
 
     //Touchpoint
-    @Field(type = FieldType.Text, name = "phone_number")
+    @Field(type = FieldType.Text, name = "phone_number", analyzer = "custom_analyzer_number")
     private val phoneNumber: String,
 
     @Field(type = FieldType.Text, name = "friendly_name")
