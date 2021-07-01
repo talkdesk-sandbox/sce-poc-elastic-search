@@ -1,11 +1,12 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-	kotlin("jvm") version "1.4.21"
+	kotlin("jvm") version "1.5.20"
 	id("org.jetbrains.kotlin.plugin.allopen") version "1.4.21"
 	id("org.springframework.boot") version "2.5.2"
 	id("io.spring.dependency-management") version "1.0.11.RELEASE"
 	id("org.jetbrains.kotlin.plugin.spring") version "1.4.21"
+	kotlin("plugin.serialization") version "1.5.20"
 }
 
 group = "com.studiobff"
@@ -26,6 +27,7 @@ dependencies {
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("io.projectreactor:reactor-test")
 	implementation("org.springframework.data:spring-data-elasticsearch")
+	implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.1")
 }
 
 tasks.withType<KotlinCompile> {

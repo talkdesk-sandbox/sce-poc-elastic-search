@@ -14,25 +14,33 @@ class RandomInteractionTriggerGeneratorService(
 ) {
 
     fun generateRandomTriggers(){
-        val triggers_count = 10
+        val triggers_count = 10000
+        val accountIds = listOf("account-1", "account-2", "account-3", "account-4", "account-5", "account-6", "account-7", "account-8", "account-9", "account-10")
         interactionTriggersRepository.deleteAll()
-        repeat(triggers_count) { index ->
-            println("Creating a new interaction trigger with id $index")
-            val interactionTrigger = generateRandomTrigger(index.toString(), triggers_count)
-            interactionTriggersRepository.save(interactionTrigger)
+
+        val interactionTriggerList: MutableList<InteractionTrigger> = mutableListOf()
+
+        accountIds.forEach { accountId ->
+            repeat(triggers_count) { index ->
+                println("Creating a new interaction trigger with id $index")
+                val interactionTrigger = generateRandomTrigger(index.toString(), triggers_count, accountId)
+                interactionTriggerList.add(interactionTrigger)
+            }
         }
+
+        interactionTriggersRepository.saveAll(interactionTriggerList)
     }
 
-    fun generateRandomTrigger(id: String, triggers_count: Int): InteractionTrigger{
+    fun generateRandomTrigger(id: String, triggers_count: Int, accountId: String): InteractionTrigger{
        return InteractionTrigger(
-           id = id,
-           accountId = generatorService.generateRandomAccount(triggers_count),
+           id = "${id}-${accountId}",
+           accountId = accountId,
            channel = generatorService.generateRandomChannelType(),
            phoneNumber = generatorService.generatePhoneNumber(),
+           phoneNumberId = generatorService.generatePhoneNumberId(triggers_count),
            flowId = generatorService.generateRandomFlowId(triggers_count),
            flowName =  generatorService.generateRandomFlowName(),
-           friendlyName = generatorService.generateRandomFriendlyName(),
-           updated_at = Instant.now()
+           friendlyName = generatorService.generateRandomFriendlyName()
        )
     }
 

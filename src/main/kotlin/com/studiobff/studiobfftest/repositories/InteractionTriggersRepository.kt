@@ -1,10 +1,7 @@
 package com.studiobff.studiobfftest.repositories
 
 import com.studiobff.studiobfftest.models.InteractionTrigger
-import org.elasticsearch.index.query.QueryBuilders
-import org.springframework.context.annotation.Bean
 import org.springframework.data.elasticsearch.annotations.Query
-import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository
 import org.springframework.data.elasticsearch.repository.config.EnableElasticsearchRepositories
 import org.springframework.stereotype.Repository

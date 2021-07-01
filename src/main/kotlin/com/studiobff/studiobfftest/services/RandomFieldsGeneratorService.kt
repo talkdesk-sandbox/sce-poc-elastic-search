@@ -41,7 +41,7 @@ class RandomFieldsGeneratorService {
     // per account
     fun generateRandomAccount(maxNoAccounts: Int): String{
         val accountNo = (0 until maxNoAccounts).random()
-        return "account-${1}"
+        return "account-${accountNo}"
     }
 
     // We can have more than one trigger with the same flow id
@@ -49,4 +49,12 @@ class RandomFieldsGeneratorService {
         val accountNo = (0 until maxNoTriggers).random()
         return "flow-id-${accountNo}"
     }
+
+    // We can have more than one trigger with the same flow id
+    fun generatePhoneNumberId(maxNoTriggers: Int): String{
+        val accountNo = (0 until maxNoTriggers).random()
+        return "phone-id-${accountNo}"
+    }
+
+
 }
