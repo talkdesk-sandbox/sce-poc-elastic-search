@@ -1,9 +1,11 @@
 package com.studiobff.studiobfftest.services
 
+import com.studiobff.studiobfftest.models.ElasticSearchResponse
 import com.studiobff.studiobfftest.models.InteractionTrigger
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import org.springframework.stereotype.Service
+import java.util.HashMap
 
 @Service
 class BeautifyService {
@@ -16,6 +18,11 @@ class BeautifyService {
 
         output +="]"
 
-        return output
+        return output;
+
+    }
+
+    fun beautify(response: ElasticSearchResponse): String{
+        return  Json.encodeToString(response)
     }
 }

@@ -13,7 +13,7 @@ class InteractionTriggerUpdateService(
         val interactionTriggerList = interactionTriggersRepository.findByAccountIdAndFlowId(accountId, flowId)
         val newInteractionTriggersList = mutableListOf<InteractionTrigger>()
         interactionTriggerList.forEach {
-            newInteractionTriggersList.add(it.copy(flowName = flowName))
+            newInteractionTriggersList.add(it.content.copy(flowName = flowName))
 
         }
 

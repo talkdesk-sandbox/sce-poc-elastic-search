@@ -1,8 +1,10 @@
 package com.studiobff.studiobfftest.services
 
+import com.studiobff.studiobfftest.models.ElasticSearchResponse
 import com.studiobff.studiobfftest.models.InteractionTrigger
 import com.studiobff.studiobfftest.repositories.InteractionTriggersRepository
 import org.springframework.data.elasticsearch.core.ReactiveElasticsearchTemplate
+import org.springframework.data.elasticsearch.core.SearchHits
 import org.springframework.stereotype.Service
 import java.util.*
 
@@ -10,57 +12,28 @@ import java.util.*
 @Service
 class InteractionTriggersSearchService(
     private val interactionTriggersRepository: InteractionTriggersRepository,
-    private val elasticsearchTemplate: ReactiveElasticsearchTemplate
 
 ) {
-
-    fun findAllInteractionTriggers(): List<InteractionTrigger>{
-        val interactionTriggerList: MutableList<InteractionTrigger> =  ArrayList()
-
-        interactionTriggersRepository.findAll().forEach {
-            interactionTriggerList.add(it!!)
-       }
-
-        return interactionTriggerList;
+    fun findByChannel(channel: String): ElasticSearchResponse{
+        return getElasticResponse(interactionTriggersRepository.findByChannel(channel))
     }
 
-    fun findByChannel(channel: String): List<InteractionTrigger>{
-        val interactionTriggerList: MutableList<InteractionTrigger> =  ArrayList()
+    fun findByAccountId(accountId: String): ElasticSearchResponse{
+        return getElasticResponse(interactionTriggersRepository.findByAccountId(accountId))
+    }
 
-        interactionTriggersRepository.findByChannel(channel).forEach {
-            interactionTriggerList.add(it!!)
+   fun findByMultipleFields(accountId: String, filter: String): ElasticSearchResponse{
+       return getElasticResponse(interactionTriggersRepository.findByMultipleFields(accountId, filter))
+    }
+
+    fun getElasticResponse(searchResponse :SearchHits<InteractionTrigger>): ElasticSearchResponse {
+        val interactionTriggerList: MutableList<InteractionTrigger> =  ArrayList()
+        searchResponse.forEach { searchHit ->
+            interactionTriggerList.add(searchHit.content)
         }
 
-        return interactionTriggerList;
+        return ElasticSearchResponse(metadata = interactionTriggerList, count = searchResponse.totalHits);
+
     }
 
-    fun findByAccountId(accountId: String): List<InteractionTrigger>{
-        val interactionTriggerList: MutableList<InteractionTrigger> =  ArrayList()
-
-        interactionTriggersRepository.findByAccountId(accountId).forEach {
-            interactionTriggerList.add(it!!)
-        }
-
-        return interactionTriggerList;
-    }
-
-   fun findByMultipleFields(accountId:String, filter: String): List<InteractionTrigger>{
-        val interactionTriggerList: MutableList<InteractionTrigger> =  ArrayList()
-
-        interactionTriggersRepository.findByMultipleFields(accountId, filter).forEach {
-            interactionTriggerList.add(it!!)
-        }
-
-        return interactionTriggerList;
-    }
-
-    // Filter by Channel AND/OR Resource Name
-    // Find by number/ touchpoint OR Flow Name OR Friendly Name
-    // Sort by Friendly Name
-    // Sort By Touchpoint
-/*
-    fun findByQuery(query: QueryBuilder) {
-        val nativeSearchQueryBuilder = NativeSearchQueryBuilder().withQuery(query)
-        return elasticsearchTemplate.search(nativeSearchQueryBuilder.build(), InteractionTrigger::class.java)
-    }*/
 }

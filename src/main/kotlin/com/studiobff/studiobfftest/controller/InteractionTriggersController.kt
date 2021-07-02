@@ -24,11 +24,6 @@ class InteractionTriggersController(
         return "Added random Interaction Triggers"
     }
 
-    @RequestMapping("/", method = [RequestMethod.GET])
-    fun getAll(): String{
-        return beautifyService.beautify(searchService.findAllInteractionTriggers())
-    }
-
     @RequestMapping("/findByChannel", method = [RequestMethod.GET])
     fun getByChannel(
         @RequestBody body: Map<String, String>,

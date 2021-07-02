@@ -1,6 +1,7 @@
 package com.studiobff.studiobfftest.repositories
 
 import com.studiobff.studiobfftest.models.InteractionTrigger
+import org.springframework.data.elasticsearch.core.SearchHits
 import org.springframework.data.elasticsearch.annotations.Query
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository
 import org.springframework.data.elasticsearch.repository.config.EnableElasticsearchRepositories
@@ -9,9 +10,9 @@ import org.springframework.stereotype.Repository
 @Repository
 @EnableElasticsearchRepositories
 interface InteractionTriggersRepository: ElasticsearchRepository<InteractionTrigger, String>{
-    fun findByChannel(name: String): List<InteractionTrigger>
+    fun findByChannel(name: String): SearchHits<InteractionTrigger>
 
-    fun findByAccountId(accountId: String): List<InteractionTrigger>
+    fun findByAccountId(accountId: String): SearchHits<InteractionTrigger>
 
     @Query("{\"bool\": {\n" +
         "    \"must\": [\n" +
@@ -34,7 +35,7 @@ interface InteractionTriggersRepository: ElasticsearchRepository<InteractionTrig
         "        }\n" +
         "    ]\n" +
         "}}")
-    fun findByMultipleFields(accountId: String, searchInput: String): List<InteractionTrigger>
+    fun findByMultipleFields(accountId: String, searchInput: String): SearchHits<InteractionTrigger>
 
-    fun findByAccountIdAndFlowId(accountId: String, flowId: String): List<InteractionTrigger>
+    fun findByAccountIdAndFlowId(accountId: String, flowId: String): SearchHits<InteractionTrigger>
 }
