@@ -22,7 +22,7 @@ class RandomFieldsGeneratorService {
     }
 
     fun generateRandomFriendlyName(): String{
-        return getRandomString(7)
+        return "Friendly name ${getRandomString(7)}"
     }
 
     fun generateRandomFlowName(): String{

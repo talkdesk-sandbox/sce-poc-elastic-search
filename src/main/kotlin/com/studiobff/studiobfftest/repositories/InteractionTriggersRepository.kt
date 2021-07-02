@@ -13,8 +13,28 @@ interface InteractionTriggersRepository: ElasticsearchRepository<InteractionTrig
 
     fun findByAccountId(accountId: String): List<InteractionTrigger>
 
-    @Query("{\"bool\": { \"must\": [{\"match\": {\"account_id\": {\"query\": \"?0\"}}},{\"wildcard\": {\"flow_name\": \"?1\"}}]}}")
-    fun findByMultipleFields(accountId: String, field: String): List<InteractionTrigger>
+    @Query("{\"bool\": {\n" +
+        "    \"must\": [\n" +
+        "        {\n" +
+        "            \"terms\": {\n" +
+        "                \"account_id\": [\n" +
+        "                    \"account-1\"\n" +
+        "                ]\n" +
+        "            }\n" +
+        "        },\n" +
+        "        {\n" +
+        "            \"multi_match\": {\n" +
+        "                \"query\": \"flow name\",\n" +
+        "                \"fields\": [\n" +
+        "                    \"flow_name\",\n" +
+        "                    \"friendly_name\",\n" +
+        "                    \"phone_number\"\n" +
+        "                ]\n" +
+        "            }\n" +
+        "        }\n" +
+        "    ]\n" +
+        "}}")
+    fun findByMultipleFields(accountId: String, searchInput: String): List<InteractionTrigger>
 
     fun findByAccountIdAndFlowId(accountId: String, flowId: String): List<InteractionTrigger>
 }

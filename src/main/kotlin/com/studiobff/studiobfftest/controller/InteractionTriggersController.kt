@@ -54,15 +54,15 @@ class InteractionTriggersController(
 
    @RequestMapping("/findByMultipleFields", method = [RequestMethod.GET])
     fun getByMultipleFields(
-        @RequestParam field: String,
+        @RequestParam searchInput: String,
         @RequestParam accountId: String
     ): String{
 
-        field.ifEmpty {
+       searchInput.ifEmpty {
             return "Error finding by multiple fields"
         }
 
-        return beautifyService.beautify(searchService.findByMultipleFields(accountId, field))
+        return beautifyService.beautify(searchService.findByMultipleFields(accountId, searchInput))
     }
 
     @RequestMapping("/updateFlowName", method = [RequestMethod.POST])
