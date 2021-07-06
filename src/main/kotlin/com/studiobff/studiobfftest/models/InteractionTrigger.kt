@@ -8,35 +8,34 @@ import org.springframework.data.elasticsearch.annotations.FieldType
 import org.springframework.data.elasticsearch.annotations.Setting
 import java.time.Instant
 
-@Serializable
 @Setting(settingPath = "settings/flowAnalyzer.json")
 @Document(indexName = "interactiontriggerindex")
 data class InteractionTrigger (
 
     @Id
-    private val id: String,
+    val id: String,
 
     @Field(type = FieldType.Keyword, name = "account_id")
-    private val accountId: String,
+    val accountId: String,
 
     @Field(type = FieldType.Keyword, name = "channel")
-    private val channel: String,
+    val channel: String,
 
     @Field(type = FieldType.Text, name = "phone_number", analyzer = "custom_analyzer_number")
-    private val phoneNumber: String,
+    val phoneNumber: String,
 
     @Field(type = FieldType.Keyword, name = "phone_number_id")
-    private val phoneNumberId: String,
+    val phoneNumberId: String,
 
     @Field(type = FieldType.Text, name = "friendly_name")
-    private val friendlyName: String,
+    val friendlyName: String,
 
     @Field(type = FieldType.Keyword, name = "flow_id")
-    private val flowId: String,
+    val flowId: String,
 
     @Field(type = FieldType.Text, name = "flow_name", analyzer = "custom_analyzer")
-    private val flowName: String,
+    val flowName: String,
 
-    //@Field(type = FieldType.Date, pattern = ["yyyy-MM-dd'T'HH:mm:ss.SSSZZ"])
-    //private val updated_at: Instant
+    @Field(type = FieldType.Date, pattern = ["yyyy-MM-dd'T'HH:mm:ss.SSSZZ"])
+    val updated_at: Instant
     )

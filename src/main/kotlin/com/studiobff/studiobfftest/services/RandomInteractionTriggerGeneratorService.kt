@@ -14,8 +14,8 @@ class RandomInteractionTriggerGeneratorService(
 ) {
 
     fun generateRandomTriggers(){
-        val triggers_count = 10000
-        val accountIds = listOf("account-1", "account-2", "account-3", "account-4", "account-5", "account-6", "account-7", "account-8", "account-9", "account-10")
+        val triggers_count = 10
+        val accountIds = listOf("account-1")
         interactionTriggersRepository.deleteAll()
 
         val interactionTriggerList: MutableList<InteractionTrigger> = mutableListOf()
@@ -40,7 +40,8 @@ class RandomInteractionTriggerGeneratorService(
            phoneNumberId = generatorService.generatePhoneNumberId(triggers_count),
            flowId = generatorService.generateRandomFlowId(triggers_count),
            flowName =  generatorService.generateRandomFlowName(),
-           friendlyName = generatorService.generateRandomFriendlyName()
+           friendlyName = generatorService.generateRandomFriendlyName(),
+           updated_at = Instant.now()
        )
     }
 
