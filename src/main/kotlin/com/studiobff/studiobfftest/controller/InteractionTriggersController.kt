@@ -22,8 +22,13 @@ class InteractionTriggersController(
     private val beautifyService: BeautifyService,
 ) {
     @RequestMapping("/", method = [RequestMethod.POST])
-    fun set(): String{
-        generatorService.generateRandomTriggers()
+    fun set(
+        @RequestParam wipe: Boolean = true,
+        @RequestParam triggers: Int = 200,
+        @RequestParam accounts: Int = 10,
+        @RequestParam batches: Int = 1
+    ): String{
+        generatorService.generateRandomTriggers(wipe, triggers, accounts, batches)
         return "Added random Interaction Triggers"
     }
 

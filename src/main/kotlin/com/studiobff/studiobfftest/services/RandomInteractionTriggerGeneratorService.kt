@@ -12,23 +12,38 @@ class RandomInteractionTriggerGeneratorService(
     private val generatorService: RandomFieldsGeneratorService
 
 ) {
+    var accountTotal = 0
 
-    fun generateRandomTriggers(){
-        val triggers_count = 10
-        val accountIds = listOf("account-1")
-        interactionTriggersRepository.deleteAll()
+    fun generateRandomTriggers(wipe: Boolean, triggers: Int, accounts: Int, batches: Int){
+        val triggers_count = triggers
+        val accountIds = ArrayList<String>()
+        val accountIncrement = accounts
 
-        val interactionTriggerList: MutableList<InteractionTrigger> = mutableListOf()
-
-        accountIds.forEach { accountId ->
-            repeat(triggers_count) { index ->
-                println("Creating a new interaction trigger with id $index")
-                val interactionTrigger = generateRandomTrigger(index.toString(), triggers_count, accountId)
-                interactionTriggerList.add(interactionTrigger)
-            }
+        if(wipe) {
+            accountTotal = 0
+            interactionTriggersRepository.deleteAll()
         }
 
-        interactionTriggersRepository.saveAll(interactionTriggerList)
+        for(batch in 1..batches) {
+            val accountCurrent = accountTotal
+            accountTotal += accountIncrement
+
+            for (i in accountCurrent until accountTotal) {
+                accountIds.add("account-$i")
+            }
+
+            val interactionTriggerList: MutableList<InteractionTrigger> = mutableListOf()
+
+            accountIds.forEach { accountId ->
+                repeat(triggers_count) { index ->
+                    println("For account $accountId Creating a new interaction trigger with id $index")
+                    val interactionTrigger = generateRandomTrigger(index.toString(), triggers_count, accountId)
+                    interactionTriggerList.add(interactionTrigger)
+                }
+            }
+
+            interactionTriggersRepository.saveAll(interactionTriggerList)
+        }
     }
 
     fun generateRandomTrigger(id: String, triggers_count: Int, accountId: String): InteractionTrigger{
