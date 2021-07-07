@@ -1,6 +1,7 @@
 package com.studiobff.studiobfftest.controller
 
 import com.studiobff.studiobfftest.models.ElasticSearchResponse
+import com.studiobff.studiobfftest.models.Filters
 import com.studiobff.studiobfftest.models.InteractionTrigger
 import com.studiobff.studiobfftest.services.BeautifyService
 import com.studiobff.studiobfftest.services.InteractionTriggerUpdateService
@@ -45,10 +46,11 @@ class InteractionTriggersController(
 
     @RequestMapping("/findByAccountId", method = [RequestMethod.GET])
     fun getByChannel(
-        @RequestParam accountId: String
+        @RequestParam accountId: String,
+        queryParams: Filters
     ): ElasticSearchResponse{
 
-        return searchService.findByAccountId(accountId)
+        return searchService.findByAccountId(accountId, queryParams)
     }
 
    @RequestMapping("/findByMultipleFields", method = [RequestMethod.GET])
