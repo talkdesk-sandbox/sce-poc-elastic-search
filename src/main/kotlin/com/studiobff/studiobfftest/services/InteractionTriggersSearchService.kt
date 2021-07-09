@@ -53,7 +53,7 @@ class InteractionTriggersSearchService(
                 else -> throw Exception("Unexpected error")
             }
 
-            val defaultSort = Sort.by("updatedAt").descending()
+            val defaultSort = Sort.by("updated_at").descending()
 
             return PageRequest.of((filters.page - 1), filters.per_page, sort.and(defaultSort))
         } catch (e: Exception) {
